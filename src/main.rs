@@ -122,45 +122,6 @@ struct TeamHolder{
 }
 
 
-//Bad function and should be removed for now
-//Better to calculate a total average with a normal deviation to see if its different enought
-fn homogen_value(c: &Vec<Network>) -> f32{
-	let mut hom: f32 = 0f32;
-
-	for i in 0..(c.len()-1){
-		for j in (i+1)..c.len(){
-			let mut tot = 0f32;
-			let mut same = 0f32;
-
-			for i_layer in 0..c[i].weight.len(){
-				for i_perceptron in 0..c[i].weight[i_layer].len(){
-					for i_weight in 0..c[i].weight[i_layer][i_perceptron].len(){
-						if c[i].weight[i_layer][i_perceptron][i_weight] == c[j].weight[i_layer][i_perceptron][i_weight] {
-							same += 1f32;
-						}
-						tot += 1f32;
-					}
-					if c[i].bias[i_layer][i_perceptron] == c[j].bias[i_layer][i_perceptron] {
-						same += 1f32;
-					}
-					tot += 1f32;
-				}
-			}
-			hom += same/tot;
-		}
-	}
-
-	let mut amount = 0;
-	
-	for i in 0..c.len(){
-		amount += 1+i;
-	}
-
-	return hom/amount as f32;
-
-}
-
-
 //Maybe I should min_max the best move and then apply backpropagation
 //After the network has got the basics of the game
 //Then maybe I should make the AI play against itself ?? 
